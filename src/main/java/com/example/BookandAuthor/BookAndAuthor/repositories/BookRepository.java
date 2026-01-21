@@ -13,5 +13,5 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     List<BookEntity> findByPublishedDateAfter(LocalDate date);
 
-    List<BookEntity> findByAuthorId(Long authorId);
+    List<BookEntity> findByAuthor_Id(Long authorId);
 }

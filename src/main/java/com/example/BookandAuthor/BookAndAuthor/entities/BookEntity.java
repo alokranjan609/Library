@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "books")
 public class BookEntity {
 
     @Id
@@ -21,5 +22,5 @@ public class BookEntity {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private AuthorEntity authorEntity;
+    private AuthorEntity author;
 }
