@@ -2,6 +2,7 @@ package com.example.BookandAuthor.BookAndAuthor.services;
 
 import com.example.BookandAuthor.BookAndAuthor.dto.AuthorDTO;
 import com.example.BookandAuthor.BookAndAuthor.entities.AuthorEntity;
+import com.example.BookandAuthor.BookAndAuthor.exceptions.ResourceNotFoundException;
 import com.example.BookandAuthor.BookAndAuthor.repositories.AuthorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class AuthorService {
     }
 
     public AuthorDTO getAuthorById(Long id) {
-        AuthorEntity authorEntity= authorRepository.findById(id).orElseThrow(()->new RuntimeException("No Resource found"));
+        AuthorEntity authorEntity= authorRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No Author found for"+id));
         return modelMapper.map(authorEntity,AuthorDTO.class);
     }
 
@@ -48,6 +49,10 @@ public class AuthorService {
     }
 
     public void deleteAuthor(Long id) {
+        if(!authorRepository.existsById(id)){
+            throw new ResourceNotFoundException("No Author found for "+id);
+        }
+
         authorRepository.deleteById(id);
     }
 
